@@ -5,14 +5,14 @@ import Advice from "./components/Advice";
 import DisplaySavedAdv from "./components/SavedAdvice";
 function App() {
   return (
-    <Router>
+    <>
       <nav>
         <div>
-          <Link to="/">Get Advice</Link>
+          <Link to="/">Get Reminder</Link>
         </div>
         
         <div>
-          <Link to="/saved">Saved Advice</Link>
+          <Link to="/saved">Saved Reminders</Link>
         </div>
       </nav>
       <Routes>
@@ -20,7 +20,7 @@ function App() {
         <Route path="/saved" element={<DisplaySavedAdv />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-    </Router>
+    </>
   );
 }
 

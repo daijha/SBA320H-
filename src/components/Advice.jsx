@@ -4,41 +4,52 @@ function Advice() {
   const [adv, setAdv] = useState(null); // using null instead of empty string helps the logical and in the return.
   //   const [saved, setSaved] = useState([]); // empty array to store saved advice.
   async function getAdvice() {
+    try{
     let url = "https://api.adviceslip.com/advice"; // returns random advice slip as a slip object
     const response = await fetch(url);
     const data = await response.json();
     setAdv(data.slip.advice);
     console.log("advice:", data.slip.advice); // logs advice to console
+  }catch{
+    console.log("error")
+    setAdv("something wrong happened.")
   }
-  //   useEffect(() => {
-  //     getAdvice();
-  //   }, []);// rendered on the mount and i don't want that ...
+    }
+
   function handleSave() {
-    // needs to load saved advice first or operator is used to make sure if its null its empty
     const existingSaved = JSON.parse(localStorage.getItem("savedAdvArr")) || [];
+if(existingSaved.includes(adv)){
+  console.log(" This is already saved!")
+return;
+}else{
+    // needs to load saved advice first or operator is used to make sure if its null its empty
     const newSavedList = [...existingSaved, adv]; // put in const to make it easier to use local storage  adds the new adv to list of given ones
-    // setSaved(newSavedList); // the set runs the function to update the array
     localStorage.setItem("savedAdvArr", JSON.stringify(newSavedList));
-  }
-  //   useEffect(() => {
-  //     console.log(saved); // its async so now ill see it stored in the array in real time.
-  //   }, [saved]); //only show when saved is being used
+  }}
+
+const [btnTxtContent, setBtnTxtContent] = useState("Tell me Something ")
 
   return (
     <div>
+      <h1>Sage Reminders </h1>
+      <h3>Click the Button Below for Sage Guidance </h3>
       <button
         onClick={() => {
           getAdvice();
+           {setBtnTxtContent("Tell me something else")}
         }}
       >
-        Tell me something
+      {btnTxtContent}
       </button>
       {adv && (
         <div>
+          <h4>
+            Here is what you should know: 
+          </h4>
           <p>
-            Here is what you should know: <br /> {adv}
+            {adv}
           </p>
-          <button onClick={handleSave}>Save this Advice</button>
+          <button onClick={handleSave}>Save this Reminder</button>
         </div>
       )}
     </div>

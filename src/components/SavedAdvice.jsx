@@ -9,31 +9,38 @@ function DisplaySavedAdv() {
       (item, index) => index !== removeIndex
     );
     setSavedAdvice(updatedList); // updates the list after deletion
-    localStorage.setItem("savedArr", JSON.stringify(updatedList)); // now accessible in local storage as a string to get later
+    localStorage.setItem("savedAdvArr", JSON.stringify(updatedList)); // now accessible in local storage as a string to get later
   }
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("savedAdvArr")) || [];
     setSavedAdvice(saved);
   }, []);
+  // updated for some conditional rendering outside the return...
+  let listContent;
+  if (savedAdvice.length === 0) {
+    listContent = (
+      <p>
+        This list is currently empty! Advice: Go save something and come back.
+      </p>
+    );
+  } else {
+    listContent = savedAdvice.map((advice, index) => {
+      return (
+        <li key={index}>
+          {advice}
+          <button onClick={() => handleDelete(index)}>delete</button>{" "}
+          {/*  the button goes in the map so it sits next to the corresponding index */}
+        </li>
+      );
+    });
+  }
 
   return (
     <div>
-      <h1>Your Favorite pieces of wisdom</h1>
-      <h3>
-        add some kind of description here and change that h1 content is bad{" "}
-      </h3>
-      <ul>
-        {savedAdvice.map((advice, index) => {
-          return (
-            <li key={index}>
-              {" "}
-              {advice}{" "}
-              <button onClick={() => handleDelete(index)}>delete</button> {/*  the button goes in the map so it sits next to the corresponding index */}
-            </li>
-          );
-        })}
-      </ul>
+      <h1> Saved Reminders</h1>
+      <h3>Your Favorite Reminders Stored Here</h3>
+      <ul>{listContent}</ul>
     </div>
   );
 }
