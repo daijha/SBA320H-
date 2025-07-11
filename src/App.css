@@ -28,7 +28,12 @@ nav div{
     padding:8px;
     box-shadow: 1px 1px 1px;
     margin:8px;
+      background-color:#8fa58f;
+  transition: background-color 0.2s ease;
+}
 
+nav div:hover {
+  background-color:#6f8a6f;
 }
 
 ul{
