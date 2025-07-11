@@ -30,7 +30,7 @@ return;
 const [btnTxtContent, setBtnTxtContent] = useState("Tell me Something ")
 
   return (
-    <div>
+    <div className="body">
       <h1>Sage Reminders </h1>
       <h3>Click the Button Below for Sage Guidance </h3>
       <button

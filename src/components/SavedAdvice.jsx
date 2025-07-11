@@ -21,7 +21,7 @@ function DisplaySavedAdv() {
   if (savedAdvice.length === 0) {
     listContent = (
       <p>
-        This list is currently empty! Advice: Go save something and come back.
+        This list is currently empty. Advice: Go save something and come back!
       </p>
     );
   } else {
@@ -29,7 +29,7 @@ function DisplaySavedAdv() {
       return (
         <li key={index}>
           {advice}
-          <button onClick={() => handleDelete(index)}>delete</button>{" "}
+          <button onClick={() => handleDelete(index)}>delete</button>
           {/*  the button goes in the map so it sits next to the corresponding index */}
         </li>
       );
@@ -37,9 +37,9 @@ function DisplaySavedAdv() {
   }
 
   return (
-    <div>
+    <div className="body">
       <h1> Saved Reminders</h1>
-      <h3>Your Favorite Reminders Stored Here</h3>
+      <h3>Your Favorite Reminders Stored Here:</h3>
       <ul>{listContent}</ul>
     </div>
   );
